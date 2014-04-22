@@ -33,7 +33,7 @@ cacheSolve <- function(x, ...) {
 m <- x$getinverse()
     if(!is.null(m)) {
       message("getting cached inverted matrix if it exist")
-      return(m)
+      return(m)  #return the previously inverted matrix 
     }
     data <- x$get()
     m <- solve(data, ...)  # invert the matrix and pass it to m
