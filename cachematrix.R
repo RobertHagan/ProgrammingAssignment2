@@ -1,16 +1,42 @@
-## Put comments here that give an overall description of what your
+## Two functions to eliminate the need to repeately re-compute the inverse of a matrix if it has not changed
+## The two functions work together to check if the inverse of a matrix has been computed and if 
+## it has already been computed, retrieve it from the parent workspace, otherwise compute the inverse
+## and put it in the parent workspace for continuing use.
+
 ## functions do
 
 ## This function creates a cache-able matrix and includes subfunctions to save it in the workspace
-#Write a short comment describing this function
+## makeCacheMatrix and cascheSolve are to be used together as a pair of functions
+## to save time needed to re-compute the inverse of the matrix 
 
 makeCacheMatrix <- function(x = matrix()) {
-
+m <- NULL  #set up a null matrix
+    set <- function(y) {    
+        x <- y
+        m <- NULL  # set up an empty matrix to work with 
+       }
+    get <- function() x
+    setinverse <- function(inverse)  m <<- inverse  #put the inverse in the parent workspace
+    getinverse <- function() m
+    list(set = set, get = get, 
+         setinverse = setinverse,
+         getinverse = getinverse)  #parameters for saving and getting back the inverse
 }
 
 
-## Write a short comment describing this function
+## R script for function to check if inverse is already computed
+## if already computed, retrieve it.  If first iteration, compute inverse with solve and return it 
+## to be saved in the cache
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+m <- x$getinverse()
+    if(!is.null(m)) {
+      message("getting cached inverted matrix if it exist")
+      return(m)
+    }
+    data <- x$get()
+    m <- solve(data, ...)  # invert the matrix and pass it to m
+    x$setinverse(m)
+    m
 }
