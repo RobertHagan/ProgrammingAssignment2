@@ -3,11 +3,15 @@
 ## it has already been computed, retrieve it from the parent workspace, otherwise compute the inverse
 ## and put it in the parent workspace for continuing use.
 
-## functions do
+## Parameters should be a square matrix first and the second shuld be a vector giving the right hand
+## sie of the linear system.. If b is missing, it is assumed to be an identity vector or matrix 
+## so the inverse of x is returned.  To ensure the inverse of the matrix X is returned, no other parameters
+## should be included.
 
 ## This function creates a cache-able matrix and includes subfunctions to save it in the workspace
 ## makeCacheMatrix and cascheSolve are to be used together as a pair of functions
 ## to save time needed to re-compute the inverse of the matrix 
+
 
 makeCacheMatrix <- function(x = matrix()) {
 m <- NULL  #set up a null matrix
